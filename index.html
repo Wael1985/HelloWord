@@ -1,24 +1,411 @@
-
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hello World</title>
+    <title>قالب خطة الدرس التفاعلية للأطفال</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/docx/7.8.2/docx.min.js"></script>
     <style>
-        body { text-align: center; margin-top: 50px; }
-        button { padding: 10px 20px; font-size: 16px; }
+        @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap');
+
+        body {
+            font-family: 'Tajawal', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f0f8ff;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cg fill-rule='evenodd'%3E%3Cg fill='%239C92AC' fill-opacity='0.1'%3E%3Cpath opacity='.5' d='M96 95h4v1h-4v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9zm-1 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9z'/%3E%3Cpath d='M6 5V0H5v5H0v1h5v94h1V6h94V5H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+
+        h1, h2 {
+            color: #1e3a8a;
+            text-align: center;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 30px;
+            background: linear-gradient(45deg, #ff9a9e 0%, #fad0c4 99%, #fad0c4 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .section {
+            background-color: white;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .section::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            background: linear-gradient(45deg, #ff9a9e 0%, #fad0c4 99%, #fad0c4 100%);
+            z-index: -1;
+            filter: blur(20px);
+            opacity: 0.7;
+        }
+
+        .section h2 {
+            color: #1e3a8a;
+            border-bottom: 2px solid #3b82f6;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 2px solid #3b82f6;
+            border-radius: 8px;
+            font-size: 1em;
+            transition: all 0.3s ease;
+        }
+
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: #1e40af;
+            box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.5);
+            transform: translateY(-2px);
+        }
+
+        button {
+            background-color: #3b82f6;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            cursor: pointer;
+            border-radius: 8px;
+            margin-left: 10px;
+            font-size: 1em;
+            transition: all 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #1e40af;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .preview {
+            border: 2px solid #3b82f6;
+            padding: 20px;
+            margin-top: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .toolbar {
+            margin-bottom: 15px;
+            background-color: #dbeafe;
+            padding: 10px;
+            border-radius: 8px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+        }
+
+        .toolbar button {
+            background-color: #60a5fa;
+            margin: 0;
+        }
+
+        #toolSymbols {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .tool-symbol {
+            font-size: 2em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background-color: #e0f2fe;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .tool-symbol:hover {
+            transform: scale(1.2);
+            background-color: #bfdbfe;
+        }
+
+        #selectedTools {
+            min-height: 50px;
+            border: 2px dashed #3b82f6;
+            border-radius: 8px;
+            padding: 10px;
+            margin-bottom: 15px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .selected-tool {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin: 5px;
+            padding: 5px 10px;
+            background-color: #dbeafe;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .selected-tool:hover {
+            background-color: #bfdbfe;
+            transform: translateY(-2px);
+        }
+
+        @media print {
+            body * {
+                visibility: hidden;
+            }
+            .section, .section * {
+                visibility: visible;
+            }
+            .section {
+                position: absolute;
+                left: 0;
+                top: 0;
+            }
+        }
     </style>
 </head>
 <body>
-    <h1>Hello, World!</h1>
-    <button id="interactiveButton">Click Me!</button>
-    <p id="message"></p>
+    <h1>🎨 منشئ خطة الدرس التفاعلية للأطفال 📚</h1>
+    
+    <div class="section">
+        <h2>📝 تفاصيل الدرس</h2>
+        <form id="lessonPlanForm">
+            <input type="date" id="lessonDate" required>
+            <input type="text" id="subject" placeholder="📚 المادة" required>
+            <input type="text" id="grade" placeholder="🏫 الصف الدراسي" required>
+            <input type="text" id="classPeriod" placeholder="⏰ الحصة الدراسية" required>
+            <input type="text" id="lessonTitle" placeholder="📖 عنوان الدرس" required>
+            <textarea id="introduction" placeholder="🌟 المقدمة" rows="3"></textarea>
+            <textarea id="objectives" placeholder="🎯 الأهداف" rows="3"></textarea>
+            <h3>🛠️ أدوات الدرس</h3>
+            <div id="toolSymbols">
+                <span class="tool-symbol" onclick="addTool('📕')">📕</span>
+                <span class="tool-symbol" onclick="addTool('✏️')">✏️</span>
+                <span class="tool-symbol" onclick="addTool('📏')">📏</span>
+                <span class="tool-symbol" onclick="addTool('🖥️')">🖥️</span>
+                <span class="tool-symbol" onclick="addTool('🧪')">🧪</span>
+                <span class="tool-symbol" onclick="addTool('🎨')">🎨</span>
+                <span class="tool-symbol" onclick="addTool('🔬')">🔬</span>
+                <span class="tool-symbol" onclick="addTool('🧮')">🧮</span>
+                <span class="tool-symbol" onclick="addTool('🎵')">🎵</span>
+                <span class="tool-symbol" onclick="addTool('🏀')">🏀</span>
+                <span class="tool-symbol" onclick="addTool('🌱')">🌱</span>
+                <span class="tool-symbol" onclick="addTool('🧩')">🧩</span>
+                <span class="tool-symbol" onclick="addTool('🔭')">🔭</span>
+                <span class="tool-symbol" onclick="addTool('🗺️')">🗺️</span>
+                <span class="tool-symbol" onclick="addTool('🎭')">🎭</span>
+                <span class="tool-symbol" onclick="addTool('🖌️')">🖌️</span>
+            </div>
+            <div id="selectedTools"></div>
+            <input type="text" id="customTool" placeholder="✨ أضف أداة مخصصة">
+            <button type="button" onclick="addCustomTool()">إضافة أداة مخصصة</button>
+            <textarea id="steps" placeholder="👣 خطوات الدرس" rows="5"></textarea>
+            <textarea id="activities" placeholder="🏋️ الأنشطة" rows="5"></textarea>
+        </form>
+    </div>
+
+    <div class="section">
+        <h2>👨‍👩‍👧‍👦 الحضور</h2>
+        <input type="text" id="studentName" placeholder="👤 اسم الطالب">
+        <button onclick="addStudent()">➕ إضافة طالب</button>
+        <ul id="attendanceList"></ul>
+    </div>
+
+    <div class="section">
+        <h2>👀 معاينة</h2>
+        <div class="toolbar">
+            <button onclick="applyStyle('bold')"><strong>غامق</strong></button>
+            <button onclick="applyStyle('italic')"><em>مائل</em></button>
+            <button onclick="applyStyle('underline')"><u>تسطير</u></button>
+            <button onclick="applyStyle('justifyRight')">⇐</button>
+            <button onclick="applyStyle('justifyCenter')">↔</button>
+            <button onclick="applyStyle('justifyLeft')">⇒</button>
+            <input type="number" id="fontSize" min="8" max="72" value="16" onchange="changeFontSize()">
+            <input type="color" id="fontColor" onchange="changeFontColor()">
+        </div>
+        <div id="preview" class="preview" contenteditable="true"></div>
+    </div>
+
+    <div class="section">
+        <button onclick="generatePreview()">🔍 إنشاء معاينة</button>
+        <button onclick="resetForm()">🔄 إعادة تعيين النموذج</button>
+        <button onclick="saveLastInput()">💾 حفظ آخر إدخال</button>
+        <button onclick="printForm()">🖨️ طباعة النموذج</button>
+        <button onclick="printPreview()">🖨️ طباعة المعاينة</button>
+        <button onclick="exportToHTML()">💻 تصدير إلى HTML</button>
+        <button onclick="exportToDOCX()">📄 تصدير إلى DOCX</button>
+    </div>
 
     <script>
-        document.getElementById('interactiveButton').addEventListener('click', function() {
-            document.getElementById('message').innerText = 'You clicked the button!';
-        });
+        function generatePreview() {
+            const preview = document.getElementById('preview');
+            const form = document.getElementById('lessonPlanForm');
+            let previewHTML = `
+                <h2>📚 ${form.lessonTitle.value}</h2>
+                <p><strong>📅 التاريخ:</strong> ${form.lessonDate.value}</p>
+                <p><strong>📚 المادة:</strong> ${form.subject.value}</p>
+                <p><strong>🏫 الصف:</strong> ${form.grade.value}</p>
+                <p><strong>⏰ الحصة:</strong> ${form.classPeriod.value}</p>
+                <h3>🌟 المقدمة</h3>
+                <p>${form.introduction.value}</p>
+                <h3>🎯 الأهداف</h3>
+                <p>${form.objectives.value}</p>
+                <h3>🛠️ الأدوات المستخدمة</h3>
+                <p>${Array.from(document.querySelectorAll('.selected-tool')).map(tool => tool.textContent).join(' ')}</p>
+                <h3>👣 خطوات الدرس</h3>
+                <p>${form.steps.value}</p>
+                <h3>🏋️ الأنشطة</h3>
+                <p>${form.activities.value}</p>
+                <h3>👨‍👩‍👧‍👦 الحضور</h3>
+            `;
+
+            const attendanceList = document.getElementById('attendanceList');
+            if (attendanceList.children.length > 0) {
+                previewHTML += '<ul>';
+                for (let li of attendanceList.children) {
+                    const studentName = li.textContent.split(' - ')[0];
+                    const attendance = li.querySelector('select').value;
+                    previewHTML += `<li>${studentName} - ${attendance}</li>`;
+                }
+                previewHTML += '</ul>';
+            } else {
+                previewHTML += '<p>لم تتم إضافة طلاب.</p>';
+            }
+
+            preview.innerHTML = previewHTML;
+        }
+
+        function addStudent() {
+            const studentName = document.getElementById('studentName').value;
+            if (studentName) {
+                const li = document.createElement('li');
+                li.innerHTML = `
+                    <span class="emoji">👤</span> ${studentName} - 
+                    <select>
+                        <option value="حاضر">✅ حاضر</option>
+                        <option value="غائب">❌ غائب</option>
+                    </select>
+                    <button onclick="this.parentElement.remove()">🗑️ إزالة</button>
+                `;
+                document.getElementById('attendanceList').appendChild(li);
+                document.getElementById('studentName').value = '';
+            }
+        }
+
+        function resetForm() {
+            document.getElementById('lessonPlanForm').reset();
+            document.getElementById('attendanceList').innerHTML = '';
+            document.getElementById('preview').innerHTML = '';
+            document.getElementById('selectedTools').innerHTML = '';
+        }
+
+        function saveLastInput() {
+            const lastInput = document.activeElement.value;
+            localStorage.setItem('lastInput', lastInput);
+            alert('تم حفظ آخر إدخال! 💾');
+        }
+
+        function applyStyle(style) {
+            document.execCommand(style, false, null);
+        }
+
+        function changeFontSize() {
+            const size = document.getElementById('fontSize').value;
+            document.execCommand('fontSize', false, size);
+        }
+
+        function changeFontColor() {
+            const color = document.getElementById('fontColor').value;
+            document.execCommand('foreColor', false, color);
+        }
+
+        function printForm() {
+            window.print();
+        }
+
+        function printPreview() {
+            const previewContent = document.getElementById('preview').innerHTML;
+            const win = window.open('', '_blank');
+            win.document.write('<html><head><title>معاينة خطة الدرس</title></head><body style="direction: rtl;">');
+            win.document.write(previewContent);
+            win.document.write('</body></html>');
+            win.document.close();
+            win.print();
+        }
+
+        function exportToHTML() {
+            const htmlContent = document.documentElement.outerHTML;
+            const blob = new Blob([htmlContent], {type: 'text/html'});
+            saveAs(blob, 'خطة_الدرس.html');
+        }
+
+        function exportToDOCX() {
+            const previewContent = document.getElementById('preview').innerHTML;
+            const doc = new docx.Document({
+                sections: [{
+                    properties: { 
+                        page: {
+                            rightToLeft: true,
+                        },
+                    },
+                    children: [
+                        new docx.Paragraph({
+                            children: [new docx.TextRun(previewContent)],
+                            bidirectional: true,
+                        }),
+                    ],
+                }],
+            });
+            docx.Packer.toBlob(doc).then(blob => {
+                saveAs(blob, 'خطة_الدرس.docx');
+            });
+        }
+
+        function addTool(symbol) {
+            const selectedTools = document.getElementById('selectedTools');
+            const toolSpan = document.createElement('span');
+            toolSpan.className = 'selected-tool';
+            toolSpan.textContent = symbol;
+            toolSpan.onclick = function() { this.remove(); };
+            selectedTools.appendChild(toolSpan);
+        }
+
+        function addCustomTool() {
+            const customTool = document.getElementById('customTool');
+            if (customTool.value) {
+                addTool(customTool.value);
+                customTool.value = '';
+            }
+        }
     </script>
 </body>
 </html>
