@@ -7,6 +7,7 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap');
 
+        /* Variables for primary color scheme */
         :root {
             --primary-color: #FF6B6B;
             --secondary-color: #4ECDC4;
@@ -14,8 +15,10 @@
             --text-color: #2C3E50;
             --border-color: #45B7D1;
             --accent-color: #FFD93D;
+            --print-margin: 20px; /* Default margin for printed preview */
         }
 
+        /* General styles for body and containers */
         body {
             font-family: 'Tajawal', sans-serif;
             line-height: 1.6;
@@ -24,6 +27,7 @@
             margin: 0;
             padding: 20px;
             font-size: 18px;
+            direction: rtl; /* RTL for Arabic layout */
         }
 
         .container {
@@ -42,33 +46,18 @@
             font-weight: 700;
         }
 
-        h1 {
-            font-size: 2.5em;
-            margin-bottom: 30px;
-        }
-
-        h2 {
-            font-size: 2em;
-            margin-top: 40px;
-            margin-bottom: 20px;
-            background-color: var(--accent-color);
-            padding: 10px;
-            border-radius: 15px;
-        }
-
         .form-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 20px;
         }
 
+        /* Form and input styling */
         .form-group {
             margin-bottom: 25px;
         }
 
         label {
-            display: block;
-            margin-bottom: 8px;
             font-weight: bold;
             color: var(--secondary-color);
             font-size: 1.1em;
@@ -84,11 +73,7 @@
             transition: all 0.3s ease;
         }
 
-        input:focus, textarea:focus, select:focus {
-            outline: none;
-            box-shadow: 0 0 10px var(--border-color);
-        }
-
+        /* Button styling */
         button {
             background-color: var(--primary-color);
             color: white;
@@ -99,121 +84,57 @@
             font-size: 18px;
             font-weight: bold;
             transition: all 0.3s ease;
-            margin: 5px;
         }
 
-        button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-        }
-
-        .preview {
+        /* Styles for the preview table */
+        .preview-table {
+            width: 100%;
+            border-collapse: collapse;
             margin-top: 30px;
-            border: 4px solid var(--border-color);
-            border-radius: 20px;
-            padding: 25px;
-            background-color: #FFFFFF;
+            direction: rtl; /* RTL for the preview table */
         }
 
-        .preview-content {
-            min-height: 300px;
-            border: 3px dashed var(--secondary-color);
+        .preview-table th, .preview-table td {
+            border: 1px solid var(--border-color);
             padding: 15px;
-            margin-top: 15px;
-            border-radius: 15px;
+            text-align: right; /* Align text to the right */
+            vertical-align: top;
         }
 
-        .toolbar {
-            margin-bottom: 15px;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            justify-content: center;
-        }
-
-        .toolbar button {
-            background-color: var(--secondary-color);
-            font-size: 16px;
-            padding: 8px 16px;
-        }
-
-        .attendance-list {
-            margin-top: 30px;
-            background-color: #E8F8F5;
-            padding: 20px;
-            border-radius: 15px;
-        }
-
-        .attendance-item {
-            display: flex;
-            align-items: center;
-            margin-bottom: 15px;
-            background-color: white;
-            padding: 10px;
-            border-radius: 10px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        }
-
-        .attendance-item input[type="text"] {
-            flex-grow: 1;
-            margin-left: 10px;
-        }
-
-        .attendance-item select {
-            width: auto;
-            margin: 0 10px;
-        }
-
-        #imageUpload {
-            margin-top: 30px;
-            background-color: #FFF5E6;
-            padding: 20px;
-            border-radius: 15px;
-        }
-
-        #imagePreview {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 15px;
-            margin-top: 15px;
-        }
-
-        #imagePreview img {
-            border: 3px solid var(--border-color);
-            border-radius: 10px;
-            transition: transform 0.3s;
-            max-width: 150px;
-            max-height: 150px;
-            object-fit: cover;
-        }
-
-        #imagePreview img:hover {
-            transform: scale(1.1);
-        }
-
-        .emoji-button {
-            font-size: 30px;
-            background: none;
-            border: 2px solid var(--border-color);
-            cursor: pointer;
-            transition: transform 0.3s;
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            margin: 5px;
-        }
-
-        .emoji-button:hover {
-            transform: scale(1.2);
+        .preview-table th {
             background-color: var(--accent-color);
         }
 
-        @media (max-width: 768px) {
-            .form-grid {
-                grid-template-columns: 1fr;
+        /* Attendance list styles */
+        .attendance-list {
+            margin-bottom: 15px;
+        }
+
+        .attendance-list input {
+            display: inline-block;
+            width: calc(100% - 60px);
+        }
+
+        .attendance-list button {
+            display: inline-block;
+            width: 50px;
+            margin-right: 10px;
+        }
+
+        /* Print preview adjustments */
+        @media print {
+            body {
+                margin: var(--print-margin);
+            }
+            .container {
+                box-shadow: none;
+                padding: 0;
+            }
+            button {
+                display: none; /* Hide buttons during print */
+            }
+            .preview {
+                page-break-before: always; /* Always start preview on a new page */
             }
         }
     </style>
@@ -222,6 +143,7 @@
     <div class="container">
         <h1>🚀 نموذج تحضير درس - وجدان قرمة 🚀</h1>
         
+        <!-- Form Section -->
         <form id="lessonPlanForm">
             <div class="form-grid">
                 <div class="form-group">
@@ -264,6 +186,7 @@
                 </div>
             </div>
 
+            <!-- Additional Form Fields -->
             <div class="form-group">
                 <label for="lessonTitle">🎯 عنوان الدرس:</label>
                 <input type="text" id="lessonTitle" name="lessonTitle" required>
@@ -280,322 +203,133 @@
             </div>
 
             <div class="form-group">
-                <label for="toolsResources">🛠️ الأدوات والموارد:</label>
-                <div id="toolsResourcesList">
-                    <button type="button" class="emoji-button" onclick="addTool('📚')">📚</button>
-                    <button type="button" class="emoji-button" onclick="addTool('🖍️')">🖍️</button>
-                    <button type="button" class="emoji-button" onclick="addTool('🖥️')">🖥️</button>
-                    <button type="button" class="emoji-button" onclick="addTool('🧪')">🧪</button>
-                    <button type="button" class="emoji-button" onclick="addTool('🎨')">🎨</button>
-                </div>
-                <textarea id="toolsResources" name="toolsResources" rows="3" required></textarea>
-            </div>
-
-            <div class="form-group">
                 <label for="lessonSteps">👣 خطوات الدرس:</label>
                 <textarea id="lessonSteps" name="lessonSteps" rows="5" required></textarea>
             </div>
 
+            <!-- Tools Section -->
             <div class="form-group">
-                <label for="activities">🎭 الأنشطة:</label>
-                <textarea id="activities" name="activities" rows="5" required></textarea>
+                <label for="tools">🛠 الأدوات المستخدمة:</label>
+                <textarea id="tools" name="tools" rows="3" placeholder="أدخل الأدوات اللازمة للدرس"></textarea>
             </div>
 
+            <!-- Lesson Activities Section -->
             <div class="form-group">
-                <label for="notes">📝 ملاحظات:</label>
-                <textarea id="notes" name="notes" rows="3"></textarea>
+                <label for="activities">📚 الأنشطة الدراسية:</label>
+                <textarea id="activities" name="activities" rows="4" placeholder="أدخل الأنشطة المخطط لها للدرس"></textarea>
             </div>
 
-            <div class="attendance-list">
-                <h2>✅ الحضور</h2>
-                <div id="attendanceItems"></div>
-                <button type="button" id="addAttendanceItem">➕ إضافة طالب</button>
+            <!-- Image Upload Section -->
+            <div class="form-group">
+                <label for="lessonImage">🖼️ صورة الدرس:</label>
+                <input type="file" id="lessonImage" name="lessonImage" accept="image/*">
             </div>
 
-            <div id="imageUpload">
-                <h2>🖼️ صور الدرس</h2>
-                <input type="file" id="imageInput" accept="image/*" multiple>
-                <div id="imagePreview"></div>
+            <!-- Student Attendance Section -->
+            <div class="form-group">
+                <label for="students">👥 الحضور الطلابي:</label>
+                <div id="attendanceList" class="attendance-list">
+                    <div>
+                        <input type="text" placeholder="أدخل اسم الطالب" class="student-name">
+                        <button type="button" onclick="removeStudent(this)">🗑️</button>
+                    </div>
+                </div>
+                <button type="button" onclick="addStudent()">➕ إضافة طالب</button>
             </div>
         </form>
 
+        <!-- Preview Section -->
         <h2>👁️ معاينة</h2>
-        <div class="toolbar">
-            <button onclick="formatText('bold')">غامق</button>
-            <button onclick="formatText('italic')">مائل</button>
-            <button onclick="formatText('underline')">تحته خط</button>
-            <button onclick="formatText('justifyRight')">محاذاة لليمين</button>
-            <button onclick="formatText('justifyCenter')">توسيط</button>
-            <button onclick="formatText('justifyLeft')">محاذاة لليسار</button>
-            <select onchange="formatText('fontSize', this.value)">
-                <option value="1">صغير</option>
-                <option value="3" selected>عادي</option>
-                <option value="5">كبير</option>
-                <option value="7">كبير جداً</option>
-            </select>
-            <input type="color" onchange="formatText('foreColor', this.value)">
-        </div>
         <div class="preview">
-            <div id="previewContent" class="preview-content" contenteditable="true"></div>
+            <table class="preview-table" id="previewTable">
+                <!-- The table will be filled by JavaScript -->
+            </table>
         </div>
 
+        <!-- Action Buttons -->
         <div style="margin-top: 30px; text-align: center;">
-            <button onclick="resetForm()">🔄 إعادة تعيين النموذج</button>
-            <button onclick="saveForm()">💾 حفظ النموذج</button>
+            <button onclick="updatePreview()">🔄 تحديث المعاينة</button>
             <button onclick="printForm()">🖨️ طباعة النموذج</button>
-            <button onclick="printPreview()">👀 طباعة المعاينة</button>
-            <button onclick="exportHTML()">📤 تصدير كـ HTML</button>
-            <button onclick="exportDOCX()">📄 تصدير كـ DOCX</button>
+            <label for="marginRange">ضبط الهامش:</label>
+            <input type="range" id="marginRange" min="0" max="50" value="20" oninput="adjustPrintMargin(this.value)">
         </div>
     </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/docx/7.3.0/docx.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
-
     <script>
-        // Function to add attendance item
-        function addAttendanceItem() {
-            const attendanceItems = document.getElementById('attendanceItems');
-            const newItem = document.createElement('div');
-            newItem.className = 'attendance-item';
-            newItem.innerHTML = `
-                <input type="text" placeholder="اسم الطالب">
-                <select>
-                    <option value="حاضر">حاضر</option>
-                    <option value="غائب">غائب</option>
-                </select>
-                <button type="button" onclick="this.parentElement.remove()">🗑️</button>
-            `;
-            attendanceItems.appendChild(newItem);
-            updatePreview();
-        }
-
-        // Add initial attendance item
-        addAttendanceItem();
-
-        // Event listener for adding attendance items
-        document.getElementById('addAttendanceItem').addEventListener('click', addAttendanceItem);
-
-        // Function to add tool emoji
-        function addTool(emoji) {
-            const toolsResources = document.getElementById('toolsResources');
-            toolsResources.value += emoji + ' ';
-            updatePreview();
-        }
-
-        // Function to update preview
+        // Function to update the preview by creating a table based on form input
         function updatePreview() {
-            const previewContent = document.getElementById('previewContent');
             const formData = new FormData(document.getElementById('lessonPlanForm'));
-            
-            let previewHTML = '<h2>خطة الدرس</h2>';
+            const table = document.getElementById('previewTable');
+            const attendanceList = Array.from(document.querySelectorAll('.student-name'))
+                .map(input => input.value)
+                .filter(name => name.trim() !== "");
+
+            // Clear the table before updating
+            table.innerHTML = '';
+
+            // Add table headers
+            const headerRow = document.createElement('tr');
+            headerRow.innerHTML = `
+                <th>الحقل</th>
+                <th>القيمة</th>
+            `;
+            table.appendChild(headerRow);
+
+            // Loop through form data and add each input as a table row
             for (let [key, value] of formData.entries()) {
-                if (key !== 'imageInput') {
-                    const label = document.querySelector(`label[for="${key}"]`);
-                    const labelText = label ? label.textContent.split(' ').slice(1).join(' ') : key;
-                    previewHTML += `<p><strong>${labelText}</strong> ${value}</p>`;
-                }
+                const label = document.querySelector(`label[for="${key}"]`).textContent;
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${label}</td>
+                    <td>${value}</td>
+                `;
+                table.appendChild(row);
             }
 
-            // Add attendance list to preview
-            previewHTML += '<h3>الحضور</h3><ul>';
-            document.querySelectorAll('.attendance-item').forEach(item => {
-                const name = item.querySelector('input[type="text"]').value;
-                const status = item.querySelector('select').value;
-                previewHTML += `<li>${name}: ${status}</li>`;
-            });
-            previewHTML += '</ul>';
-
-            // Add images to preview
-            const imagePreview = document.getElementById('imagePreview');
-            if (imagePreview.innerHTML) {
-                previewHTML += '<h3>صور الدرس</h3>';
-                previewHTML += imagePreview.innerHTML;
-            }
-
-            previewContent.innerHTML = previewHTML;
+            // Add attendance list to the table
+            const attendanceRow = document.createElement('tr');
+            attendanceRow.innerHTML = `
+                <td>👥 الحضور الطلابي</td>
+                <td>${attendanceList.join(', ')}</td>
+            `;
+            table.appendChild(attendanceRow);
         }
 
-        // Event listeners for form inputs
-        document.querySelectorAll('input, textarea, select').forEach(element => {
-            element.addEventListener('input', updatePreview);
-        });
-
-        // Function to reset form
-        function resetForm() {
-            document.getElementById('lessonPlanForm').reset();
-            document.getElementById('attendanceItems').innerHTML = '';
-            document.getElementById('imagePreview').innerHTML = '';
-            addAttendanceItem();
-            updatePreview();
+        // Function to add a new student to the attendance list
+        function addStudent() {
+            const attendanceList = document.getElementById('attendanceList');
+            const studentRow = document.createElement('div');
+            studentRow.innerHTML = `
+                <input type="text" placeholder="أدخل اسم الطالب" class="student-name">
+                <button type="button" onclick="removeStudent(this)">🗑️</button>
+            `;
+            attendanceList.appendChild(studentRow);
         }
 
-        // Function to save form (using localStorage)
-        function saveForm() {
-            const formData = new FormData(document.getElementById('lessonPlanForm'));
-            const data = Object.fromEntries(formData);
-            data.attendance = Array.from(document.querySelectorAll('.attendance-item')).map(item => ({
-                name: item.querySelector('input[type="text"]').value,
-                status: item.querySelector('select').value
-            }));
-            localStorage.setItem('lessonPlanData', JSON.stringify(data));
-            alert('تم حفظ بيانات النموذج!');
+        // Function to remove a student from the attendance list
+        function removeStudent(button) {
+            button.parentElement.remove();
         }
 
-        // Function to load saved form data
-        function loadSavedForm() {
-            const savedData = localStorage.getItem('lessonPlanData');
-            if (savedData) {
-                const data = JSON.parse(savedData);
-                Object.keys(data).forEach(key => {
-                    const element = document.getElementById(key);
-                    if (element && key !== 'attendance') {
-                        element.value = data[key];
-                    }
-                });
-                if (data.attendance) {
-                    document.getElementById('attendanceItems').innerHTML = '';
-                    data.attendance.forEach(item => {
-                        addAttendanceItem();
-                        const lastItem = document.querySelector('.attendance-item:last-child');
-                        lastItem.querySelector('input[type="text"]').value = item.name;
-                        lastItem.querySelector('select').value = item.status;
-                    });
-                }
-                updatePreview();
-            }
+        // Function to adjust print margin dynamically
+        function adjustPrintMargin(value) {
+            document.documentElement.style.setProperty('--print-margin', value + 'px');
         }
 
-        // Load saved form data on page load
-        window.addEventListener('load', loadSavedForm);
-
-        // Function to format text in preview
-        function formatText(command, value = null) {
-            document.execCommand(command, false, value);
-            document.getElementById('previewContent').focus();
-        }
-
-        // Function to handle image upload
-        document.getElementById('imageInput').addEventListener('change', function(event) {
-            const preview = document.getElementById('imagePreview');
-            preview.innerHTML = '';
-            const files = event.target.files;
-            for (let i = 0; i < files.length; i++) {
-                const file = files[i];
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    const img = document.createElement('img');
-                    img.src = e.target.result;
-                    img.alt = 'صورة الدرس';
-                    preview.appendChild(img);
-                }
-                reader.readAsDataURL(file);
-            }
-            updatePreview();
-        });
-
-        // Function to print form
+        // Function to print the form (with the updated preview table)
         function printForm() {
             window.print();
         }
 
-        // Function to print preview
-        function printPreview() {
-            const previewContent = document.getElementById('previewContent').innerHTML;
-            const printWindow = window.open('', '', 'height=600,width=800');
-            printWindow.document.write('<html><head><title>معاينة خطة الدرس</title>');
-            printWindow.document.write('<style>body { font-family: Arial, sans-serif; direction: rtl; }</style>');
-            printWindow.document.write('</head><body>');
-            printWindow.document.write(previewContent);
-            printWindow.document.write('</body></html>');
-            printWindow.document.close();
-            printWindow.print();
-        }
+        // Event listeners for form inputs to automatically update preview
+        document.querySelectorAll('input, textarea, select').forEach(element => {
+            element.addEventListener('input', updatePreview);
+        });
 
-        // Function to export as HTML
-        function exportHTML() {
-            const htmlContent = `
-                <!DOCTYPE html>
-                <html lang="ar" dir="rtl">
-                <head>
-                    <meta charset="UTF-8">
-                    <title>خطة الدرس</title>
-                    <style>
-                        body { 
-                            font-family: 'Tajawal', Arial, sans-serif; 
-                            line-height: 1.6;
-                            color: #2C3E50;
-                            margin: 0;
-                            padding: 20px;
-                        }
-                        h2 { color: #FF6B6B; }
-                        img { max-width: 100%; height: auto; }
-                    </style>
-                </head>
-                <body>
-                    ${document.getElementById('previewContent').innerHTML}
-                </body>
-                </html>
-            `;
-            const blob = new Blob([htmlContent], { type: 'text/html;charset=utf-8' });
-            saveAs(blob, 'خطة_الدرس.html');
-        }
-
-        // Function to export as DOCX
-        function exportDOCX() {
-            const doc = new docx.Document({
-                sections: [{
-                    properties: {},
-                    children: [
-                        new docx.Paragraph({
-                            text: "خطة الدرس",
-                            heading: docx.HeadingLevel.HEADING_1,
-                            alignment: docx.AlignmentType.RIGHT
-                        })
-                    ]
-                }]
-            });
-            
-            const previewContent = document.getElementById('previewContent');
-            const children = previewContent.childNodes;
-
-            children.forEach(child => {
-                if (child.nodeType === Node.ELEMENT_NODE) {
-                    if (child.tagName === 'H2' || child.tagName === 'H3') {
-                        doc.addParagraph(new docx.Paragraph({
-                            text: child.textContent,
-                            heading: child.tagName === 'H2' ? docx.HeadingLevel.HEADING_2 : docx.HeadingLevel.HEADING_3,
-                            alignment: docx.AlignmentType.RIGHT
-                        }));
-                    } else if (child.tagName === 'P') {
-                        doc.addParagraph(new docx.Paragraph({
-                            text: child.textContent,
-                            alignment: docx.AlignmentType.RIGHT
-                        }));
-                    } else if (child.tagName === 'UL') {
-                        child.querySelectorAll('li').forEach(li => {
-                            doc.addParagraph(new docx.Paragraph({
-                                text: li.textContent,
-                                bullet: {
-                                    level: 0
-                                },
-                                alignment: docx.AlignmentType.RIGHT
-                            }));
-                        });
-                    } else if (child.tagName === 'IMG') {
-                        // Note: Adding images to DOCX is more complex and may require additional libraries or server-side processing
-                        doc.addParagraph(new docx.Paragraph({
-                            text: "[صورة الدرس]",
-                            alignment: docx.AlignmentType.RIGHT
-                        }));
-                    }
-                }
-            });
-
-            docx.Packer.toBlob(doc).then(blob => {
-                saveAs(blob, 'خطة_الدرس.docx');
-            });
-        }
+        // Initialize the preview when the page loads
+        window.onload = function() {
+            updatePreview();
+        };
     </script>
 </body>
 </html>
