@@ -3,312 +3,438 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>نموذج خطة الدرس التفاعلية - تصميم حديث</title>
+    <title>منظم خطة الدرس ومتابعة الحضور</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600&display=swap');
-
-        /* Primary color scheme */
-        :root {
-            --primary-color-light: #007AFF;
-            --primary-color-dark: #0A84FF;
-            --secondary-color-light: #34C759;
-            --secondary-color-dark: #30D158;
-            --background-light: #F9FAFB;
-            --background-dark: #1C1C1E;
-            --text-color-light: #1C1C1E;
-            --text-color-dark: #F9FAFB;
-            --border-light: #D1D1D6;
-            --border-dark: #48484A;
-            --accent-light: #FF9500;
-            --accent-dark: #FF9F0A;
-            --button-hover-light: #005BBB;
-            --button-hover-dark: #0A6FFF;
+        @media print {
+            .no-print {
+                display: none;
+            }
+            .printable {
+                display: block;
+            }
         }
-
-        /* General styles */
-        body {
-            font-family: 'Cairo', sans-serif;
-            margin: 0;
-            padding: 20px;
-            background-color: var(--background-light);
-            color: var(--text-color-light);
-            transition: background-color 0.3s, color 0.3s;
+        .dark {
+            background-color: #1a202c;
+            color: #e2e8f0;
         }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 40px;
-            align-items: start;
-        }
-
-        h1 {
-            text-align: center;
-            color: var(--primary-color-light);
-            font-weight: 600;
-        }
-
-        /* Form styling */
-        form {
-            background-color: #fff;
-            border-radius: 20px;
-            padding: 20px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-        }
-
-        label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: bold;
-            color: var(--primary-color-light);
-        }
-
-        input, textarea, select {
-            width: 100%;
-            padding: 12px;
-            margin-bottom: 20px;
-            border: 2px solid var(--border-light);
-            border-radius: 10px;
-            font-size: 16px;
-            background-color: #F9FAFB;
-            transition: all 0.3s;
-        }
-
-        input:focus, textarea:focus, select:focus {
-            border-color: var(--primary-color-light);
-            outline: none;
-        }
-
-        button {
-            width: 100%;
-            padding: 12px;
-            background-color: var(--primary-color-light);
-            color: #fff;
-            border: none;
-            border-radius: 50px;
-            cursor: pointer;
-            font-size: 18px;
-            font-weight: bold;
-            transition: background-color 0.3s;
-        }
-
-        button:hover {
-            background-color: var(--button-hover-light);
-        }
-
-        /* Preview styling */
-        .preview-container {
-            background-color: #fff;
-            border-radius: 20px;
-            padding: 20px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-        }
-
-        .preview-container h2 {
-            text-align: center;
-            color: var(--primary-color-light);
-            margin-bottom: 20px;
-            font-weight: 600;
-        }
-
-        .preview-table {
+        table {
             width: 100%;
             border-collapse: collapse;
-            margin-bottom: 20px;
         }
-
-        .preview-table th, .preview-table td {
-            padding: 15px;
-            border: 1px solid var(--border-light);
+        th, td {
+            border: 1px solid #e2e8f0;
+            padding: 8px;
             text-align: right;
         }
-
-        .image-preview img {
-            max-width: 100%;
-            height: auto;
-            border-radius: 10px;
+        th {
+            background-color: #f8fafc;
         }
-
-        /* Dark mode toggle */
-        .toggle-container {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        .toggle-container input[type="checkbox"] {
-            display: none;
-        }
-
-        .toggle-container label {
-            display: inline-block;
-            background-color: var(--primary-color-light);
-            color: white;
-            padding: 10px 20px;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-
-        .toggle-container input[type="checkbox"]:checked + label {
-            background-color: var(--secondary-color-light);
-        }
-
-        /* Dark mode styles */
-        body.dark-mode {
-            background-color: var(--background-dark);
-            color: var(--text-color-dark);
-        }
-
-        body.dark-mode input, body.dark-mode textarea, body.dark-mode select {
-            background-color: var(--background-dark);
-            color: var(--text-color-dark);
-            border-color: var(--border-dark);
-        }
-
-        body.dark-mode .preview-container, body.dark-mode form {
-            background-color: var(--background-dark);
-            box-shadow: none;
-        }
-
-        body.dark-mode label, body.dark-mode button {
-            color: var(--text-color-dark);
-        }
-
-        body.dark-mode button {
-            background-color: var(--primary-color-dark);
-        }
-
-        body.dark-mode button:hover {
-            background-color: var(--button-hover-dark);
-        }
-
-        body.dark-mode .toggle-container label {
-            background-color: var(--secondary-color-dark);
+        .dark th {
+            background-color: #2d3748;
         }
     </style>
 </head>
-<body>
-    <!-- Toggle Dark Mode -->
-    <div class="toggle-container">
-        <input type="checkbox" id="toggleDarkMode" />
-        <label for="toggleDarkMode">تبديل الوضع الداكن</label>
-    </div>
+<body class="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-white">
+    <div class="container mx-auto p-4">
+        <div class="text-center mb-8">
+            <h1 class="text-4xl font-bold text-gray-800 dark:text-white">🚀 خطة الدرس ومتابعة الحضور - وجدان قرمة 🚀</h1>
+        </div>
 
-    <div class="container">
-        <!-- Form Section -->
-        <form id="lessonPlanForm">
-            <h1>🚀  نموذج تحضير درس - وجدان قرمة 🚀</h1>
-            <label for="date">📅 التاريخ:</label>
-            <input type="date" id="date" name="date" required>
-            
-            <label for="subject">📚 المادة:</label>
-            <select id="subject" name="subject" required>
-                <option value="">اختر المادة</option>
-                <option value="رياضيات">رياضيات</option>
-                <option value="علوم">علوم</option>
-                <option value="لغة عربية">لغة عربية</option>
-                <option value="تاريخ">تاريخ</option>
-                <option value="جغرافيا">جغرافيا</option>
-            </select>
-
-            <label for="grade">🏫 الصف:</label>
-            <select id="grade" name="grade" required>
-                <option value="">اختر الصف</option>
-                <option value="الأول">الأول</option>
-                <option value="الثاني">الثاني</option>
-                <option value="الثالث">الثالث</option>
-                <option value="الرابع">الرابع</option>
-                <option value="الخامس">الخامس</option>
-                <option value="السادس">السادس</option>
-            </select>
-
-            <label for="classPeriod">⏰ الحصة:</label>
-            <select id="classPeriod" name="classPeriod" required>
-                <option value="">اختر الحصة</option>
-                <option value="الأولى">الأولى</option>
-                <option value="الثانية">الثانية</option>
-                <option value="الثالثة">الثالثة</option>
-                <option value="الرابعة">الرابعة</option>
-                <option value="الخامسة">الخامسة</option>
-            </select>
-
-            <label for="lessonTitle">🎯 عنوان الدرس:</label>
-            <input type="text" id="lessonTitle" name="lessonTitle" required>
-
-            <label for="introduction">🎬 المقدمة:</label>
-            <textarea id="introduction" name="introduction" rows="3" required></textarea>
-
-            <label for="objectives">🏆 الأهداف:</label>
-            <textarea id="objectives" name="objectives" rows="3" required></textarea>
-
-            <label for="lessonSteps">👣 خطوات الدرس:</label>
-            <textarea id="lessonSteps" name="lessonSteps" rows="5" required></textarea>
-
-            <label for="tools">🛠 الأدوات المستخدمة:</label>
-            <textarea id="tools" name="tools" rows="3"></textarea>
-
-            <label for="activities">📚 الأنشطة الدراسية:</label>
-            <textarea id="activities" name="activities" rows="4"></textarea>
-
-            <label for="lessonImage">🖼️ صورة الدرس:</label>
-            <input type="file" id="lessonImage" name="lessonImage" accept="image/*">
-
-            <div class="image-preview" id="imagePreview">
-                <!-- Image preview will be displayed here -->
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 mb-8">
+            <div class="flex flex-wrap -mx-2">
+                <div class="w-full md:w-1/2 px-2 mb-4">
+                    <label for="date" class="block mb-2">📅 التاريخ:</label>
+                    <input type="date" id="date" class="w-full p-2 border rounded dark:bg-gray-700 dark:text-white">
+                </div>
+                <div class="w-full md:w-1/2 px-2 mb-4">
+                    <label for="subject" class="block mb-2">📚 المادة:</label>
+                    <select id="subject" class="w-full p-2 border rounded dark:bg-gray-700 dark:text-white">
+                        <option value="">اختر المادة</option>
+                        <option value="رياضيات">رياضيات</option>
+                        <option value="علوم">علوم</option>
+                        <option value="لغة عربية">لغة عربية</option>
+                        <option value="تاريخ">تاريخ</option>
+                        <option value="جغرافيا">جغرافيا</option>
+                    </select>
+                </div>
             </div>
 
-            <button type="button" onclick="updatePreview()">🔄 تحديث المعاينة</button>
-        </form>
+            <div class="flex flex-wrap -mx-2">
+                <div class="w-full md:w-1/2 px-2 mb-4">
+                    <label for="grade" class="block mb-2">🏫 الصف:</label>
+                    <select id="grade" class="w-full p-2 border rounded dark:bg-gray-700 dark:text-white">
+                        <option value="">اختر الصف</option>
+                        <option value="الأول">الصف الأول</option>
+                        <option value="الثاني">الصف الثاني</option>
+                        <option value="الثالث">الصف الثالث</option>
+                        <option value="الرابع">الصف الرابع</option>
+                        <option value="الخامس">الصف الخامس</option>
+                        <option value="السادس">الصف السادس</option>
+                    </select>
+                </div>
+                <div class="w-full md:w-1/2 px-2 mb-4">
+                    <label for="period" class="block mb-2">⏰ الحصة:</label>
+                    <select id="period" class="w-full p-2 border rounded dark:bg-gray-700 dark:text-white">
+                        <option value="">اختر الحصة</option>
+                        <option value="الأولى">الحصة الأولى</option>
+                        <option value="الثانية">الحصة الثانية</option>
+                        <option value="الثالثة">الحصة الثالثة</option>
+                        <option value="الرابعة">الحصة الرابعة</option>
+                        <option value="الخامسة">الحصة الخامسة</option>
+                    </select>
+                </div>
+            </div>
 
-        <!-- Preview Section -->
-        <div class="preview-container">
-            <h2>👁️ معاينة</h2>
-            <table class="preview-table" id="previewTable">
-                <!-- Table will be dynamically generated -->
-            </table>
-            <div class="image-preview" id="previewImage"></div>
+            <div class="mb-4">
+                <label for="lessonTitle" class="block mb-2">🎯 عنوان الدرس:</label>
+                <input type="text" id="lessonTitle" class="w-full p-2 border rounded dark:bg-gray-700 dark:text-white">
+            </div>
+
+            <div class="mb-4">
+                <label for="introduction" class="block mb-2">🎬 المقدمة:</label>
+                <textarea id="introduction" class="w-full p-2 border rounded dark:bg-gray-700 dark:text-white" rows="3"></textarea>
+            </div>
+
+            <div class="mb-4">
+                <label for="objectives" class="block mb-2">🏆 الأهداف:</label>
+                <textarea id="objectives" class="w-full p-2 border rounded dark:bg-gray-700 dark:text-white" rows="3"></textarea>
+            </div>
+
+            <div class="mb-4">
+                <label for="steps" class="block mb-2">👣 خطوات الدرس:</label>
+                <textarea id="steps" class="w-full p-2 border rounded dark:bg-gray-700 dark:text-white" rows="4"></textarea>
+            </div>
+
+            <div class="mb-4">
+                <label for="tools" class="block mb-2">🛠 الأدوات المستخدمة:</label>
+                <textarea id="tools" class="w-full p-2 border rounded dark:bg-gray-700 dark:text-white" rows="2"></textarea>
+            </div>
+
+            <div class="mb-4">
+                <label for="activities" class="block mb-2">📚 الأنشطة الدراسية:</label>
+                <textarea id="activities" class="w-full p-2 border rounded dark:bg-gray-700 dark:text-white" rows="3"></textarea>
+            </div>
+
+            <div class="mb-4">
+                <label for="imageUpload" class="block mb-2">🖼️ تحميل صورة الدرس:</label>
+                <input type="file" id="imageUpload" accept="image/*" class="w-full p-2 border rounded dark:bg-gray-700 dark:text-white">
+            </div>
+
+            <div id="imagePreview" class="mb-4 hidden">
+                <img id="preview" src="" alt="معاينة الصورة" class="max-w-full h-auto">
+                <button id="removeImage" class="mt-2 bg-red-500 text-white px-4 py-2 rounded">❌ إزالة الصورة</button>
+            </div>
+
+            <div class="flex items-center justify-between">
+                <button id="savePlan" class="bg-blue-500 text-white px-4 py-2 rounded">💾 حفظ خطة الدرس</button>
+                <button id="resetForm" class="bg-gray-500 text-white px-4 py-2 rounded">🔄 إعادة تعيين النموذج</button>
+            </div>
+        </div>
+
+        <div class="mt-8">
+            <h2 class="text-2xl font-bold mb-4 text-gray-800 dark:text-white">📋 الحضور</h2>
+            <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
+                <div class="mb-4 flex items-center">
+                    <input type="text" id="studentName" placeholder="اسم الطالب" class="w-full p-2 border rounded dark:bg-gray-700 dark:text-white mr-2">
+                    <button id="addStudent" class="bg-green-500 text-white px-4 py-2 rounded">➕ إضافة طالب</button>
+                </div>
+                <div class="overflow-x-auto">
+                    <table id="attendanceTable" class="w-full">
+                        <thead>
+                            <tr>
+                                <th class="text-right">اسم الطالب</th>
+                                <th class="text-right">الحالة</th>
+                                <th class="text-right">الإجراءات</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Attendance rows will be added here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div id="previewSection" class="mt-8">
+            <h2 class="text-2xl font-bold mb-4 text-gray-800 dark:text-white">👁️ معاينة خطة الدرس</h2>
+            <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
+                <div class="mb-4 flex items-center">
+                    <label for="previewWidth" class="mr-2">عرض الجدول:</label>
+                    <input type="range" id="previewWidth" min="50" max="100" value="100" class="mr-2">
+                    <span id="widthValue">100%</span>
+                </div>
+                <button id="updatePreview" class="bg-purple-500 text-white px-4 py-2 rounded mb-4">🔄 تحديث المعاينة</button>
+                <div id="previewContent" class="overflow-x-auto">
+                    <!-- Preview content will be added here -->
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-8 flex justify-between items-center">
+            <button id="printLesson" class="bg-indigo-500 text-white px-4 py-2 rounded">🖨️ طباعة خطة الدرس</button>
+            <button id="printAttendance" class="bg-indigo-500 text-white px-4 py-2 rounded">🖨️ طباعة قائمة الحضور</button>
+            <button id="toggleDarkMode" class="bg-gray-500 text-white px-4 py-2 rounded">🌓 تبديل الوضع الليلي</button>
         </div>
     </div>
 
     <script>
-        // Dark Mode Toggle
-        document.getElementById('toggleDarkMode').addEventListener('change', function() {
-            document.body.classList.toggle('dark-mode');
-        });
+        document.addEventListener('DOMContentLoaded', function() {
+            const body = document.body;
+            const imageUpload = document.getElementById('imageUpload');
+            const imagePreview = document.getElementById('imagePreview');
+            const preview = document.getElementById('preview');
+            const removeImage = document.getElementById('removeImage');
+            const addStudent = document.getElementById('addStudent');
+            const attendanceTable = document.getElementById('attendanceTable');
+            const updatePreview = document.getElementById('updatePreview');
+            const previewContent = document.getElementById('previewContent');
+            const previewWidth = document.getElementById('previewWidth');
+            const widthValue = document.getElementById('widthValue');
+            const printLesson = document.getElementById('printLesson');
+            const printAttendance = document.getElementById('printAttendance');
+            const toggleDarkMode = document.getElementById('toggleDarkMode');
+            const savePlan = document.getElementById('savePlan');
+            const resetForm = document.getElementById('resetForm');
 
-        const imageInput = document.getElementById('lessonImage');
-        const imagePreview = document.getElementById('imagePreview');
-        const previewImage = document.getElementById('previewImage');
-
-        // Function to update the preview dynamically
-        function updatePreview() {
-            const formData = new FormData(document.getElementById('lessonPlanForm'));
-            const table = document.getElementById('previewTable');
-            
-            table.innerHTML = ''; // Clear existing table rows
-
-            // Add form data to the preview table
-            formData.forEach((value, key) => {
-                if (key !== 'lessonImage') {
-                    const row = document.createElement('tr');
-                    row.innerHTML = `<th>${key}</th><td>${value}</td>`;
-                    table.appendChild(row);
+            // Image upload and preview
+            imageUpload.addEventListener('change', function(e) {
+                const file = e.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        preview.src = e.target.result;
+                        imagePreview.classList.remove('hidden');
+                    }
+                    reader.readAsDataURL(file);
                 }
             });
 
-            // Handle image preview
-            const file = imageInput.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    imagePreview.innerHTML = `<img src="${e.target.result}" alt="Lesson Image">`;
-                    previewImage.innerHTML = `<img src="${e.target.result}" alt="Lesson Image">`;
-                };
-                reader.readAsDataURL(file);
-            }
+            removeImage.addEventListener('click', function() {
+                imageUpload.value = '';
+                preview.src = '';
+                imagePreview.classList.add('hidden');
+            });
+
+            // Add student to attendance
+            addStudent.addEventListener('click', function() {
+                const studentName = document.getElementById('studentName').value;
+                if (studentName) {
+                    const row = attendanceTable.insertRow(-1);
+                    const cell1 = row.insertCell(0);
+                    const cell2 = row.insertCell(1);
+                    const cell3 = row.insertCell(2);
+                    cell1.textContent = studentName;
+                    cell2.innerHTML = `
+                        <select class="p-2 border rounded dark:bg-gray-700 dark:text-white">
+                            <option value="حاضر">حاضر</option>
+                            <option value="غائب">غائب</option>
+                        </select>
+                    `;
+                    cell3.innerHTML = `<button class="bg-red-500 text-white px-2 py-1 rounded">حذف</button>`;
+                    cell3.querySelector('button').addEventListener('click', function() {
+                        attendanceTable.deleteRow(row.rowIndex);
+                    });
+                    document.getElementById('studentName').value = '';
+                }
+            });
+
+            // Update preview
+            updatePreview.addEventListener('click', function() {
+                const date = document.getElementById('date').value;
+                const subject = document.getElementById('subject').value;
+                const grade = document.getElementById('grade').value;
+                const period = document.getElementById('period').value;
+                const lessonTitle = document.getElementById('lessonTitle').value;
+                const introduction = document.getElementById('introduction').value;
+                const objectives = document.getElementById('objectives').value;
+                const steps = document.getElementById('steps').value;
+                const tools = document.getElementById('tools').value;
+                const activities = document.getElementById('activities').value;
+
+                let previewHTML = `
+                    <table class="w-full mb-4">
+                        <tr>
+                            <th>التاريخ</th>
+                            <th>المادة</th>
+                            <th>الصف</th>
+                            <th>الحصة</th>
+                        </tr>
+                        <tr>
+                            <td>${date}</td>
+                            <td>${subject}</td>
+                            <td>${grade}</td>
+                            <td>${period}</td>
+                        </tr>
+                    </table>
+                    <h2 class="text-xl font-bold mb-2">عنوان الدرس: ${lessonTitle}</h2>
+        <table class="w-full">
+            <tr>
+                <th>المقدمة</th>
+                <td>${introduction}</td>
+            </tr>
+            <tr>
+                <th>الأهداف</th>
+                <td>${objectives}</td>
+            </tr>
+            <tr>
+                <th>خطوات الدرس</th>
+                <td>${steps}</td>
+            </tr>
+            <tr>
+                <th>الأدوات المستخدمة</th>
+                <td>${tools}</td>
+            </tr>
+            <tr>
+                <th>الأنشطة الدراسية</th>
+                <td>${activities}</td>
+            </tr>
+        </table>
+    `;
+
+    if (preview.src) {
+        previewHTML += `<img src="${preview.src}" alt="صورة الدرس" style="max-width: 100%; height: auto; margin-top: 1rem;">`;
+    }
+
+    previewContent.innerHTML = previewHTML;
+});
+
+// Update preview width
+previewWidth.addEventListener('input', function() {
+    const width = this.value;
+    widthValue.textContent = `${width}%`;
+    previewContent.style.width = `${width}%`;
+});
+
+// Print functions
+printLesson.addEventListener('click', function() {
+    const printWindow = window.open('', '', 'width=800,height=600');
+    printWindow.document.write('<html><head><title>خطة الدرس</title>');
+    printWindow.document.write('<style>body { font-family: Arial, sans-serif; direction: rtl; } table { width: 100%; border-collapse: collapse; margin-bottom: 1rem; } th, td { border: 1px solid black; padding: 8px; text-align: right; }</style>');
+    printWindow.document.write('</head><body>');
+    printWindow.document.write(previewContent.innerHTML);
+    printWindow.document.write('</body></html>');
+    printWindow.document.close();
+    printWindow.print();
+});
+
+printAttendance.addEventListener('click', function() {
+    const printWindow = window.open('', '', 'width=800,height=600');
+    printWindow.document.write('<html><head><title>قائمة الحضور</title>');
+    printWindow.document.write('<style>body { font-family: Arial, sans-serif; direction: rtl; } table { width: 100%; border-collapse: collapse; } th, td { border: 1px solid black; padding: 8px; text-align: right; }</style>');
+    printWindow.document.write('</head><body>');
+    printWindow.document.write('<h2>قائمة الحضور</h2>');
+    printWindow.document.write(attendanceTable.outerHTML);
+    printWindow.document.write('</body></html>');
+    printWindow.document.close();
+    printWindow.print();
+});
+
+// Toggle dark mode
+toggleDarkMode.addEventListener('click', function() {
+    body.classList.toggle('dark');
+});
+
+// Save lesson plan
+savePlan.addEventListener('click', function() {
+    const lessonData = {
+        date: document.getElementById('date').value,
+        subject: document.getElementById('subject').value,
+        grade: document.getElementById('grade').value,
+        period: document.getElementById('period').value,
+        lessonTitle: document.getElementById('lessonTitle').value,
+        introduction: document.getElementById('introduction').value,
+        objectives: document.getElementById('objectives').value,
+        steps: document.getElementById('steps').value,
+        tools: document.getElementById('tools').value,
+        activities: document.getElementById('activities').value,
+        image: preview.src,
+        attendance: Array.from(attendanceTable.rows).slice(1).map(row => ({
+            name: row.cells[0].textContent,
+            status: row.cells[1].querySelector('select').value
+        }))
+    };
+
+    localStorage.setItem('lessonPlan', JSON.stringify(lessonData));
+    alert('تم حفظ خطة الدرس وقائمة الحضور بنجاح!');
+});
+
+// Reset form
+resetForm.addEventListener('click', function() {
+    document.getElementById('date').value = '';
+    document.getElementById('subject').value = '';
+    document.getElementById('grade').value = '';
+    document.getElementById('period').value = '';
+    document.getElementById('lessonTitle').value = '';
+    document.getElementById('introduction').value = '';
+    document.getElementById('objectives').value = '';
+    document.getElementById('steps').value = '';
+    document.getElementById('tools').value = '';
+    document.getElementById('activities').value = '';
+    imageUpload.value = '';
+    preview.src = '';
+    imagePreview.classList.add('hidden');
+    attendanceTable.innerHTML = '<thead><tr><th>اسم الطالب</th><th>الحالة</th><th>الإجراءات</th></tr></thead>';
+    previewContent.innerHTML = '';
+});
+
+// Load saved lesson plan (if exists)
+window.addEventListener('load', function() {
+    const savedLessonPlan = localStorage.getItem('lessonPlan');
+    if (savedLessonPlan) {
+        const lessonData = JSON.parse(savedLessonPlan);
+        document.getElementById('date').value = lessonData.date;
+        document.getElementById('subject').value = lessonData.subject;
+        document.getElementById('grade').value = lessonData.grade;
+        document.getElementById('period').value = lessonData.period;
+        document.getElementById('lessonTitle').value = lessonData.lessonTitle;
+        document.getElementById('introduction').value = lessonData.introduction;
+        document.getElementById('objectives').value = lessonData.objectives;
+        document.getElementById('steps').value = lessonData.steps;
+        document.getElementById('tools').value = lessonData.tools;
+        document.getElementById('activities').value = lessonData.activities;
+        if (lessonData.image) {
+            preview.src = lessonData.image;
+            imagePreview.classList.remove('hidden');
         }
-    </script>
+        if (lessonData.attendance) {
+            lessonData.attendance.forEach(student => {
+                const row = attendanceTable.insertRow(-1);
+                const cell1 = row.insertCell(0);
+                const cell2 = row.insertCell(1);
+                const cell3 = row.insertCell(2);
+                cell1.textContent = student.name;
+                cell2.innerHTML = `
+                    <select class="p-2 border rounded dark:bg-gray-700 dark:text-white">
+                        <option value="حاضر" ${student.status === 'حاضر' ? 'selected' : ''}>حاضر</option>
+                        <option value="غائب" ${student.status === 'غائب' ? 'selected' : ''}>غائب</option>
+                    </select>
+                `;
+                cell3.innerHTML = `<button class="bg-red-500 text-white px-2 py-1 rounded">حذف</button>`;
+                cell3.querySelector('button').addEventListener('click', function() {
+                    attendanceTable.deleteRow(row.rowIndex);
+                });
+            });
+        }
+    }
+});
+
+// Initialize dark mode based on user preference
+if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    body.classList.add('dark');
+}
+
+// Listen for changes in color scheme preference
+window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+    if (e.matches) {
+        body.classList.add('dark');
+    } else {
+        body.classList.remove('dark');
+    }
+});
+
+});
+</script>
 </body>
 </html>
+                    
